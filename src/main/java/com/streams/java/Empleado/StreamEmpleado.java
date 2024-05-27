@@ -28,7 +28,7 @@ public class StreamEmpleado {
                             .build()
                             ,
                             new Empleado(
-                                1500000.0,
+                                150000.0,
                                 "Jose",
                                 "Bedoya",
                                 "Sistemas"
@@ -42,24 +42,45 @@ public class StreamEmpleado {
                             )
                             ,
                             new Empleado(
-                                10000000.0,
+                                100000.0,
                                 "Maria",
                                 "Nuñez",
                                 "Logistica"
                             )
                             ,
                             new Empleado(
-                                4500000.0,
+                                45000.0,
                                 "Laura",
                                 "Garcia",
                                 "Logistica"
                             )
                             ,
                             new Empleado(
-                                1500000.0,
+                                150000.0,
                                 "Jorge",
                                 "Ortiz",
                                 "Logistica"
+                            )
+                            ,
+                            new Empleado(
+                                2200000.0,
+                                "Maikol",
+                                "Ortiz",
+                                "Sistemas"
+                            )
+                            ,
+                            new Empleado(
+                                1000000.0,
+                                "Jorge",
+                                "Ortiz",
+                                "Sistemas"
+                            )
+                            ,
+                            new Empleado(
+                                2500000.0,
+                                "Jorge",
+                                "Ortiz",
+                                "Sistemas"
                             )
                         );
         System.out.println("Operaciones de streams");
@@ -72,10 +93,10 @@ public class StreamEmpleado {
         //streamEmpleados.forEach(e -> System.out.println(e.getSalario()));
         //Predicate
         Predicate<Empleado> mayoresA2palos = empleado -> empleado.getSalario() >= 2000000.0;
-        Predicate<Empleado> menoresA3palos = empleado -> empleado.getSalario() < 3000000.0;
+        Predicate<Empleado> menoresA3palos = empleado -> empleado.getSalario() <  3000000.0;
         Predicate<Empleado> entre2Y3 = mayoresA2palos.and(menoresA3palos);
-        Function<Empleado, String> geNombreyApellido = empleado -> empleado.getApellido() + " " + empleado.getNombre();
-        Function<Empleado, Double> getSalario = Empleado::getSalario;
+        //Function<Empleado, String> geNombreyApellido = empleado -> empleado.getApellido() + " " + empleado.getNombre();
+        //Function<Empleado, Double> getSalario = Empleado::getSalario;
         //Aplicacion del predicado con un filtro
         //streamEmpleados.filter(mayoresA2palos).map(geNombreyApellido).forEach(System.out::println);
         //System.out.println(streamEmpleados.max(Comparator.comparing(getSalario)));
@@ -92,10 +113,12 @@ public class StreamEmpleado {
         System.out.println(totalSalarios);*/
 
         System.out.println(
-        "Promedio de empleados de logistica " + 
-        streamEmpleados.filter(e -> e.getDepartamento().equals("Logistica"))
+        "Suma de los empleados de sistemas entre 2 y 3: " + 
+        streamEmpleados
+        .filter(entre2Y3)
+        .filter(empleado -> empleado.getDepartamento().equals("Sistemas"))
         .mapToDouble(Empleado::getSalario)
-        .average()
+        .sum()
         );
         
         
